@@ -57,6 +57,15 @@ class LinkedList:
         
         return currNode.value
     
+    def getNode(self,index):
+        if(index < 0 or index >= self.length):
+            raise IndexError
+        currNode=self.head
+        for i in range(index):
+            currNode=currNode.next
+        return currNode
+        
+    
     def delete(self,index):
 
         if(index < 0 or index >= self.length):
@@ -93,18 +102,31 @@ class LinkedList:
         self.tail.next=None
         self.length-=1
         return tempValue
-        
     
+    def updateValue(self,index,value):
+        if(index < 0 or index>=self.length):
+            raise IndexError
+        
+        currNode=self.head
+        for i in range(index):
+            currNode=currNode.next
+        
+        currNode.value = value
 
-    ## WRITE LL CONSTRUCTOR HERE ##
-    #                             #
-    #                             #
-    #                             #
-    #                             #
-    ###############################
-
-
-
+    
+    def reverse(self):
+        if self.length <=1:
+            return     
+        currNode = self.head
+        prevNode = None
+        self.tail=self.head
+        for i in range (self.length):
+            tempNext = currNode.next
+            currNode.next = prevNode
+            prevNode=currNode
+            currNode=tempNext
+        self.head = prevNode
+        
  
 my_linked_list = LinkedList(0)
 my_linked_list.append(1)
@@ -113,17 +135,20 @@ my_linked_list.append(3)
 my_linked_list.insert(1,0.5)
 my_linked_list.insert(0,-1)
 my_linked_list.insert(6,4)
-
-my_linked_list.pop()
-my_linked_list.pop()
-my_linked_list.pop()
-
-my_linked_list.delete(0)
+my_linked_list.updateValue(2,0.1)
 
 
 for i in range(my_linked_list.length):
     print(my_linked_list.getValue(i))
 
+print('Head:', my_linked_list.head.value)
+print('Tail:', my_linked_list.tail.value)
+print('Length:', my_linked_list.length)
+
+my_linked_list.reverse()
+
+for i in range(my_linked_list.length):
+    print(my_linked_list.getValue(i))
 
 
 print('Head:', my_linked_list.head.value)
